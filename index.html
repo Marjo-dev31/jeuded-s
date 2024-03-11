@@ -20,11 +20,11 @@
                     <h1>PLAYER 1</h1>
                     <i class="fa-solid fa-circle"></i>
                 </div>
-                    <p class="global">43</p>
+                <p class="global" id="globalPlayerOne">34</p>
             </div>
             <div class="currentBlock">
                 <p>CURRENT</p>
-                <p class="current">11</p>
+                <p class="current" id="currentPlayerOne">11</p>
             </div>
         </section>
         <section class="playerTwo">
@@ -33,7 +33,7 @@
                     <h1>PLAYER 2</h1>
                     <i class="fa-solid fa-circle"></i>
                 </div>
-                    <p class="global">72</p>
+                <p class="global">566</p>
             </div>
             <div class="currentBlock">
                 <p>CURRENT</p>
@@ -42,24 +42,26 @@
         </section>
     </section>
     <section class="currentGame">
-        <div class="rules">
+        <div class="rules" id="newGame">
             <i class="fa-solid fa-plus"></i>
             <h2>NEW GAME</h2>
         </div>
         <div>
             <i class="fa-solid fa-dice-one fa-2xl"></i>
+            <p id='result'></p>
         </div>
             <div class="action">
-                <div class="rules">
+                <div class="rules" id="rollDice">
                     <i class="fa-solid fa-arrows-rotate fa-xl"></i>
                     <h2>ROLL DICE</h2>
                 </div>
-                <div class="rules">
+                <div class="rules" id="hold">
                     <i class="fa-solid fa-arrow-down fa-xl"></i>
                     <h2>HOLD</h2>
                 </div>
             </div>
     </section>
     <script src="https://kit.fontawesome.com/34e2dc1b93.js" crossorigin="anonymous"></script>
+    <script src="/app.js"></script>
   </body>
 </html>
