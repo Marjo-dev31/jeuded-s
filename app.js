@@ -10,6 +10,9 @@ let arrayScore = [];
 const hold = document.getElementById('hold');
 const globalScorePlayerOne = document.getElementById('globalPlayerOne')
 
+const playerOne = document.getElementsByClassName('playerOne')
+const playerTwo = document.getElementsByClassName('playerTwo')
+
 function startNewGame() {
   for (element of globalScore) {
     element.firstChild.textContent = 0;
@@ -55,6 +58,18 @@ function holdScore() {
     setTimeout(() => {
       alert('Vous avez gagné!')},1000);
   }
+
+  switchPlayer()
 }
 
 hold.addEventListener('click', holdScore)
+
+
+function switchPlayer() {
+  const activePlayer = playerOne[0].dataset.playerid;
+  if (activePlayer === "1") {
+    
+  }
+}
+
+switchPlayer()
