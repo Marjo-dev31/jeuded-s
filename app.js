@@ -5,7 +5,10 @@ const currentScore = document.getElementsByClassName("current");
 const rollDice = document.getElementById("rollDice");
 const resultOfDice = document.getElementById("result");
 const currentScorePlayerOne = document.getElementById("currentPlayerOne");
-let array = [];
+let arrayScore = [];
+
+const hold = document.getElementById('hold');
+const globalScorePlayerOne = document.getElementById('globalPlayerOne')
 
 function startNewGame() {
   for (element of globalScore) {
@@ -14,28 +17,37 @@ function startNewGame() {
   for (element of currentScore) {
     element.firstChild.textContent = 0;
   }
-  array = [];
+  arrayScore = [];
 }
 
 newGame.addEventListener("click", startNewGame);
 
 function rollDiceGame() {
   resultOfDice.innerHTML = Math.floor(Math.random() * (6 - 1 + 1) + 1);
-  array.push(Number(resultOfDice.innerHTML));
-  console.log(array, "toto");
+  arrayScore.push(Number(resultOfDice.innerHTML));
 
-  let total = 0;
+  let totalScore = 0;
 
   if (resultOfDice.innerHTML == 1) {
     currentScorePlayerOne.innerHTML = 0;
+    arrayScore = []
   } else {
-    for (let i = 0; i < array.length; i++) {
-      total += array[i];
+    for (let i = 0; i < arrayScore.length; i++) {
+      totalScore += arrayScore[i];
+      currentScorePlayerOne.innerHTML = totalScore;
     }
-    currentScorePlayerOne.innerHTML = total;
-    console.log(total, "titi");
   }
   return;
 }
 
 rollDice.addEventListener("click", rollDiceGame);
+
+
+function holdScore() {
+  let globalNumber = Number(globalScorePlayerOne.innerHTML)
+  globalNumber += Number(currentScorePlayerOne.innerHTML)
+  globalScorePlayerOne.innerHTML = globalNumber;
+  currentScorePlayerOne.innerHTML = 0;
+}
+
+hold.addEventListener('click', holdScore)
