@@ -30,7 +30,7 @@ function rollDiceGame() {
 
   if (resultOfDice.innerHTML == 1) {
     currentScorePlayerOne.innerHTML = 0;
-    arrayScore = []
+    arrayScore = [];
   } else {
     for (let i = 0; i < arrayScore.length; i++) {
       totalScore += arrayScore[i];
@@ -44,10 +44,17 @@ rollDice.addEventListener("click", rollDiceGame);
 
 
 function holdScore() {
+  
   let globalNumber = Number(globalScorePlayerOne.innerHTML)
   globalNumber += Number(currentScorePlayerOne.innerHTML)
   globalScorePlayerOne.innerHTML = globalNumber;
   currentScorePlayerOne.innerHTML = 0;
+  arrayScore= []
+  
+  if (globalScorePlayerOne.innerHTML >= 100){
+    setTimeout(() => {
+      alert('Vous avez gagné!')},1000);
+  }
 }
 
 hold.addEventListener('click', holdScore)
