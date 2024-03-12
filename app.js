@@ -52,7 +52,7 @@ function holdScore() {
   let globalNumber = Number(globalScore[activePlayer].innerHTML);
   globalNumber += Number(currentScore[activePlayer].innerHTML);
   globalScore[activePlayer].innerHTML = globalNumber;
-  // currentScore[activePlayer].innerHTML = 0;
+  currentScore[activePlayer].innerHTML = 0;
   arrayScore = [];
 
   gameWin();

@@ -104,7 +104,8 @@ p {
 .rules {
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
 }
 
 .action {
@@ -124,5 +125,5 @@ p {
   padding: 0.8rem 0;
 }
 .bgColor {
-  background-color: rgb(201, 201, 201);
+  background-color: rgb(233, 233, 233);
 }
