@@ -6,8 +6,18 @@ const rollDice = document.getElementById("rollDice");
 const resultOfDice = document.getElementById("result");
 const hold = document.getElementById('hold');
 
+const circlePlayerActive = document.getElementsByClassName('fa-circle');
+
+const gameBoardPlayerOne = document.getElementsByClassName('playerOne');
+const gameBoardPlayerTwo = document.getElementsByClassName('playerTwo');
+
 let arrayScore = [];
 let activePlayer = 0;
+
+
+newGame.addEventListener("click", startNewGame);
+rollDice.addEventListener("click", rollDiceGame);
+hold.addEventListener('click', holdScore);
 
 
 function startNewGame() {
@@ -18,17 +28,15 @@ function startNewGame() {
     element.firstChild.textContent = 0;
   }
   arrayScore = [];
+  gameActiveDisplay()
 }
 
-newGame.addEventListener("click", startNewGame);
-
-
 function rollDiceGame() {
-  resultOfDice.innerHTML = Math.floor(Math.random() * (6 - 1 + 1) + 1);
+  resultOfDice.innerHTML = Math.floor(Math.random() * 6 + 1);
   arrayScore.push(Number(resultOfDice.innerHTML));
-
+  
   let totalCurrentScore = 0;
-
+  
   if (resultOfDice.innerHTML == 1) {
     currentScore[activePlayer].innerHTML = 0;
     arrayScore = [];
@@ -39,36 +47,46 @@ function rollDiceGame() {
       currentScore[activePlayer].innerHTML = totalCurrentScore;
     }
   }
-  return;
 }
 
-rollDice.addEventListener("click", rollDiceGame);
-
-
 function holdScore() {
-  
   let globalNumber = Number(globalScore[activePlayer].innerHTML);
   globalNumber += Number(currentScore[activePlayer].innerHTML);
   globalScore[activePlayer].innerHTML = globalNumber;
-  currentScore[activePlayer].innerHTML = 0;
+  // currentScore[activePlayer].innerHTML = 0;
   arrayScore= []
   
-  if (globalScore[activePlayer].innerHTML >= 100){
-    setTimeout(() => {
-      alert(`Player ${activePlayer + 1}, Vous avez gagné!`)},1000);
-  }
-
-  switchPlayer()
+  gameWin();
+  switchPlayer();
 }
 
-hold.addEventListener('click', holdScore)
-
-
-function switchPlayer() {
+function switchPlayer() { 
   if (activePlayer === 0) {
     activePlayer = 1
   } else {
     activePlayer = 0
   }
+  gameActiveDisplay()
 }
 
+function gameActiveDisplay() {
+  if( activePlayer === 0) {
+    circlePlayerActive[0].style.visibility = 'visible';
+    circlePlayerActive[1].style.visibility = 'hidden';
+    gameBoardPlayerOne[0].classList.add("bgColor");
+    gameBoardPlayerTwo[0].classList.remove("bgColor");
+  } else {
+    circlePlayerActive[0].style.visibility = 'hidden';
+    circlePlayerActive[1].style.visibility = 'visible';
+    gameBoardPlayerOne[0].classList.remove("bgColor");
+    gameBoardPlayerTwo[0].classList.add("bgColor");
+  }
+}
+
+function gameWin() {
+  if (globalScore[activePlayer].innerHTML >= 100){
+    // setTimeout(() => {
+      //   alert(`Player ${activePlayer +1}, Vous avez gagné!`)},1000);
+        alert (`Player ${activePlayer +1}, vous avez gagné!`)
+      }
+    }
