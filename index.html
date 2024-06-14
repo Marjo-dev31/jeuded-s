@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Jeu de dé interactif à 2 joueurs">
     <title>Jeu de dés</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +28,7 @@
                 <p class="current" id="currentPlayerOne">0</p>
             </div>
         </div>
-        <section class="playerTwo">
+        <div class="playerTwo">
             <div class="playerScore">
                 <div class="playerName">
                     <h1>PLAYER 2</h1>
@@ -39,7 +40,7 @@
                 <p>CURRENT</p>
                 <p class="current">0</p>
             </div>
-        </section>
+        </div>
     </section>
     <section class="currentGame">
         <div class="rules" id="newGame">
@@ -58,6 +59,10 @@
                     <i class="fa-solid fa-arrow-down fa-xl"></i>
                     <h2>HOLD</h2>
                 </div>
+            </div>
+            <div>
+                <p>Historique des parties gagnées par joueurs :</p>
+                <p id="playersData"></p>
             </div>
     </section>
     <script src="https://kit.fontawesome.com/34e2dc1b93.js" crossorigin="anonymous"></script>

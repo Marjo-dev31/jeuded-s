@@ -11,6 +11,8 @@ const circlePlayerActive = document.getElementsByClassName("fa-circle");
 const gameBoardPlayerOne = document.getElementsByClassName("playerOne");
 const gameBoardPlayerTwo = document.getElementsByClassName("playerTwo");
 
+const playersDataElement = document.getElementById('playersData')
+
 let arrayScore = [];
 let activePlayer = 0;
 let resultOfDiceRoll = 2;
@@ -30,13 +32,14 @@ function startNewGame() {
   gameActiveDisplay();
 }
 
+
 function rollDiceGame() {
   resultOfDiceRoll = Math.floor(Math.random() * 6 + 1);
   arrayScore.push(resultOfDiceRoll);
   let totalCurrentScore = 0;
 
-  if (resultOfDiceRoll == 1) {
-    currentScore[activePlayer].innerHTML = 0;
+  if (resultOfDiceRoll === 1) {
+    currentScore[activePlayer].textContent = 0;
     arrayScore = [];
     switchPlayer();
   } else {
@@ -49,13 +52,13 @@ function rollDiceGame() {
 }
 
 function holdScore() {
-  let globalNumber = Number(globalScore[activePlayer].innerHTML);
-  globalNumber += Number(currentScore[activePlayer].innerHTML);
-  globalScore[activePlayer].innerHTML = globalNumber;
-  currentScore[activePlayer].innerHTML = 0;
-  arrayScore = [];
-
+  let globalNumber = Number(globalScore[activePlayer].textContent);
+  globalNumber += Number(currentScore[activePlayer].textContent);
+  globalScore[activePlayer].textContent = globalNumber;
+  currentScore[activePlayer].textContent = 0;
+  
   gameWin();
+  arrayScore = [];
   switchPlayer();
 }
 
@@ -83,13 +86,32 @@ function gameActiveDisplay() {
 }
 
 function gameWin() {
-  if (globalScore[activePlayer].innerHTML >= 100) {
-    // setTimeout(() => {
-    //   alert(`Player ${activePlayer +1}, Vous avez gagné!`)},1000);
-    alert(`Player ${activePlayer + 1}, vous avez gagné!`);
+  if (globalScore[activePlayer].textContent >= 100) {
+      alert(`Player ${activePlayer + 1}, vous avez gagné!`)
   }
 }
 
 function getDiceImg() {
   resultOfDice.setAttribute("src", `/images/dice${resultOfDiceRoll}.png`);
+}
+
+let playersData = []
+
+function retrieveWinGame() {
+  const header = new Headers();
+  
+  const init = {
+    method: 'GET',
+    headers: header
+  };
+
+  fetch('http://localhost:8000', init)
+    .then(response => {
+      return response.json()
+    })
+    .then(responseOfJson => {
+      playersData = responseOfJson
+    })
+
+  playersDataElement.textContent = playersData
 }
