@@ -10,8 +10,10 @@ const circlePlayerActive = document.getElementsByClassName("fa-circle");
 
 const gameBoardPlayerOne = document.getElementsByClassName("playerOne");
 const gameBoardPlayerTwo = document.getElementsByClassName("playerTwo");
+const player1DataElement = document.getElementById('player1Data');
+const player2DataElement = document.getElementById('player2Data');
 
-
+let playersData = [];
 let arrayScore = [];
 let activePlayer = 0;
 let resultOfDiceRoll = 1;
@@ -61,7 +63,6 @@ function holdScore() {
 }
 
 function switchPlayer() {
-  
   if (activePlayer === 0) {
     activePlayer = 1;
   } else {
@@ -100,14 +101,7 @@ function getDiceImg() {
   resultOfDice.setAttribute("src", `/images/dice${resultOfDiceRoll}.png`);
 }
 
-
-const player1DataElement = document.getElementById('player1Data');
-const player2DataElement = document.getElementById('player2Data');
-
-let playersData = [];
-
 function retrieveWinGame() {
-  
   const header = new Headers();
   const init = {
     method: 'GET',
@@ -127,27 +121,19 @@ function retrieveWinGame() {
 
 
 function addWinGame(){
-
   const header = new Headers();
   header.append("Content-type", "application/json")
-
   const playerId = activePlayer + 1
-
   const init = {
     method: 'POST',
     headers: header,
     body: JSON.stringify(playerId)
   };
-
   fetch(`http://localhost:8000/players/${playerId}`, init)
     .then(response => {
       return response.json()
     })
-    .then((res)=>{
-      console.log(res.players)
-    })
     .catch((error)=>{
       console.log(error)
     })
-
 }
