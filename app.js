@@ -11,11 +11,10 @@ const circlePlayerActive = document.getElementsByClassName("fa-circle");
 const gameBoardPlayerOne = document.getElementsByClassName("playerOne");
 const gameBoardPlayerTwo = document.getElementsByClassName("playerTwo");
 
-const playersDataElement = document.getElementById('playersData')
 
 let arrayScore = [];
 let activePlayer = 0;
-let resultOfDiceRoll = 2;
+let resultOfDiceRoll = 1;
 
 newGame.addEventListener("click", startNewGame);
 rollDice.addEventListener("click", rollDiceGame);
@@ -30,6 +29,7 @@ function startNewGame() {
   }
   arrayScore = [];
   gameActiveDisplay();
+  
 }
 
 
@@ -56,13 +56,12 @@ function holdScore() {
   globalNumber += Number(currentScore[activePlayer].textContent);
   globalScore[activePlayer].textContent = globalNumber;
   currentScore[activePlayer].textContent = 0;
-  
-  gameWin();
   arrayScore = [];
-  switchPlayer();
+  gameWin()
 }
 
 function switchPlayer() {
+  
   if (activePlayer === 0) {
     activePlayer = 1;
   } else {
@@ -87,7 +86,13 @@ function gameActiveDisplay() {
 
 function gameWin() {
   if (globalScore[activePlayer].textContent >= 100) {
-      alert(`Player ${activePlayer + 1}, vous avez gagné!`)
+      addWinGame();
+      alert(`Player ${activePlayer + 1}, vous avez gagné!`);
+      setTimeout(()=>{
+        retrieveWinGame()
+      }, 0)
+  } else {
+    switchPlayer();
   }
 }
 
@@ -95,23 +100,54 @@ function getDiceImg() {
   resultOfDice.setAttribute("src", `/images/dice${resultOfDiceRoll}.png`);
 }
 
-let playersData = []
+
+const player1DataElement = document.getElementById('player1Data');
+const player2DataElement = document.getElementById('player2Data');
+
+let playersData = [];
 
 function retrieveWinGame() {
-  const header = new Headers();
   
+  const header = new Headers();
   const init = {
     method: 'GET',
     headers: header
   };
 
-  fetch('http://localhost:8000', init)
+  fetch('http://localhost:8000/players', init)
     .then(response => {
       return response.json()
     })
     .then(responseOfJson => {
-      playersData = responseOfJson
+      playersData = responseOfJson;
+      player1DataElement.textContent = playersData[0].score;
+      player2DataElement.textContent = playersData[1].score;
+  })
+}
+
+
+function addWinGame(){
+
+  const header = new Headers();
+  header.append("Content-type", "application/json")
+
+  const playerId = activePlayer + 1
+
+  const init = {
+    method: 'POST',
+    headers: header,
+    body: JSON.stringify(playerId)
+  };
+
+  fetch(`http://localhost:8000/players/${playerId}`, init)
+    .then(response => {
+      return response.json()
+    })
+    .then((res)=>{
+      console.log(res.players)
+    })
+    .catch((error)=>{
+      console.log(error)
     })
 
-  playersDataElement.textContent = playersData
 }
