@@ -59,7 +59,10 @@ function holdScore() {
   globalScore[activePlayer].textContent = globalNumber;
   currentScore[activePlayer].textContent = 0;
   arrayScore = [];
-  gameWin()
+  setTimeout(()=>{
+    gameWin()
+  },0)
+  
 }
 
 function switchPlayer() {
